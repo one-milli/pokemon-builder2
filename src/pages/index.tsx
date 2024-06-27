@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <div>Pokemon builder 2</div>
-      <Link href="/about">About</Link>
+      <Link href="/detail">detail</Link>
     </>
   )
 }
