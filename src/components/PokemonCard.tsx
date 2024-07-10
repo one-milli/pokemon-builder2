@@ -1,6 +1,14 @@
 import { MyPokemon } from "@/types"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import PokemonIconM from "./PokemonIconM"
 import PokemonStatus from "./PokemonStatus"
+import StatusGraph from "./StatusGraph"
 
 type Props = {
   pokemon: MyPokemon
@@ -9,13 +17,21 @@ type Props = {
 const PokemonCard = ({ pokemon }: Props) => {
   return (
     <>
-      <div className="flex justify-between border-2 rounded-xl p-4 w-2/3 mx-auto my-6 min-w-max min-h-max">
-        <div className="flex justify-start">
+      <Card className="flex justify-between w-2/3 mx-auto my-6 min-w-max min-h-max">
+        <div className="flex">
           <PokemonIconM pokemon={pokemon} />
-          <PokemonStatus pokemon={pokemon} />
+          <div>
+            <CardHeader>
+              <CardTitle>{pokemon.pokedex_data.name_jp}</CardTitle>
+              <CardDescription>{pokemon.pokedex_data.name}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <PokemonStatus pokemon={pokemon} />
+            </CardContent>
+          </div>
         </div>
-        <div className="w-40">graph</div>
-      </div>
+        <StatusGraph pokemon={pokemon} />
+      </Card>
     </>
   )
 }

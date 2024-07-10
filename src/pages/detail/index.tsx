@@ -1,3 +1,14 @@
+import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import PokemonCard from "@/components/PokemonCard"
 
 const pokemon = {
@@ -33,9 +44,19 @@ const my_pokemon = {
 
 const Detail = () => {
   return (
-    <div>
-      <PokemonCard pokemon={my_pokemon} />
-    </div>
+    <>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>ポケモンを選択</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>ポケモンを選択</SheetHeader>
+        </SheetContent>
+      </Sheet>
+      <div className="grow">
+        <PokemonCard pokemon={my_pokemon} />
+      </div>
+    </>
   )
 }
 

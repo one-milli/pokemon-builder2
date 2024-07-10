@@ -7,7 +7,6 @@ const PokemonStatus = ({ pokemon }: Props) => {
   return (
     <>
       <div className="w-full">
-        <div className="text-2xl font-bold">{pokemon.pokedex_data.name_jp}</div>
         <div className="flex">
           <div>Lv.{pokemon.level}</div>
           <div>{pokemon.ability}</div>
