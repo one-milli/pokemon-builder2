@@ -1,12 +1,5 @@
 import { useState } from "react"
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Legend,
-} from "recharts"
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from "recharts"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { MyPokemon } from "@/types"
@@ -19,11 +12,11 @@ const StatusGraph = ({ pokemon }: Props) => {
   const [showEv, setShowEv] = useState(true)
   const data = [
     { subject: "HP", realValue: 300, effortValue: 150 },
-    { subject: "攻撃", realValue: 250, effortValue: 200 },
-    { subject: "防御", realValue: 200, effortValue: 100 },
-    { subject: "素早さ", realValue: 280, effortValue: 180 },
-    { subject: "特防", realValue: 180, effortValue: 50 },
-    { subject: "特攻", realValue: 350, effortValue: 252 },
+    { subject: "A", realValue: 250, effortValue: 200 },
+    { subject: "B", realValue: 200, effortValue: 100 },
+    { subject: "S", realValue: 280, effortValue: 180 },
+    { subject: "D", realValue: 180, effortValue: 50 },
+    { subject: "C", realValue: 350, effortValue: 252 },
   ]
 
   return (
@@ -35,15 +28,15 @@ const StatusGraph = ({ pokemon }: Props) => {
             checked={showEv}
             onCheckedChange={setShowEv}
           />
-          <Label htmlFor="effort-values">努力値の表示</Label>
+          <Label htmlFor="effort-values">努力値表示</Label>
         </div>
-        <div className="w-full h-[200px]">
+        <div>
           <RadarChart
-            cx={100}
+            cx={80}
             cy={80}
             outerRadius={60}
-            width={300}
-            height={300}
+            width={150}
+            height={200}
             data={data}
           >
             <PolarGrid />
@@ -64,7 +57,6 @@ const StatusGraph = ({ pokemon }: Props) => {
                 fillOpacity={0.3}
               />
             )}
-            <Legend />
           </RadarChart>
         </div>
       </div>
