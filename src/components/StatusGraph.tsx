@@ -8,20 +8,42 @@ type Props = {
   pokemon: MyPokemon
 }
 
+type CustomTickProps = {
+  payload: any
+  x: number
+  y: number
+  textAnchor: string
+}
+
+function customTick({ payload, x, y, textAnchor }: CustomTickProps) {
+  return (
+    <g className="recharts-layer recharts-polar-angle-axis-tick">
+      <text
+        x={x}
+        y={y}
+        className="recharts-text recharts-polar-angle-axis-tick-value"
+        text-anchor={textAnchor}
+      >
+        <tspan dy={5}>{payload.value}</tspan>
+      </text>
+    </g>
+  )
+}
+
 const StatusGraph = ({ pokemon }: Props) => {
   const [showEv, setShowEv] = useState(true)
   const data = [
-    { subject: "HP", realValue: 300, effortValue: 150 },
-    { subject: "A", realValue: 250, effortValue: 200 },
-    { subject: "B", realValue: 200, effortValue: 100 },
+    { subject: "HP", realValue: 300, effortValue: 70 },
+    { subject: "A", realValue: 250, effortValue: 0 },
+    { subject: "B", realValue: 200, effortValue: 0 },
     { subject: "S", realValue: 280, effortValue: 180 },
-    { subject: "D", realValue: 180, effortValue: 50 },
+    { subject: "D", realValue: 180, effortValue: 0 },
     { subject: "C", realValue: 350, effortValue: 252 },
   ]
 
   return (
     <>
-      <div className="w-full max-w-xl mx-auto p-4">
+      <div className="p-6">
         <div className="flex items-center space-x-2 mb-4">
           <Switch
             id="effort-values"
@@ -40,13 +62,14 @@ const StatusGraph = ({ pokemon }: Props) => {
             data={data}
           >
             <PolarGrid />
-            <PolarAngleAxis dataKey="subject" />
+            <PolarAngleAxis dataKey="subject" tick={customTick} />
             <Radar
               name="実数値"
               dataKey="realValue"
               stroke="#8FBC8F"
               fill="#8FBC8F"
               fillOpacity={0.6}
+              animationDuration={500}
             />
             {showEv && (
               <Radar
@@ -55,6 +78,7 @@ const StatusGraph = ({ pokemon }: Props) => {
                 stroke="#FFD700"
                 fill="#FFD700"
                 fillOpacity={0.3}
+                animationDuration={500}
               />
             )}
           </RadarChart>
