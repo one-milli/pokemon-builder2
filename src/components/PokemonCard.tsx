@@ -1,4 +1,4 @@
-import { MyPokemon } from "@/types"
+import { Pokemon } from "@/types"
 import {
   Card,
   CardContent,
@@ -11,19 +11,23 @@ import PokemonStatus from "./PokemonStatus"
 import StatusGraph from "./StatusGraph"
 
 type Props = {
-  pokemon: MyPokemon
+  pokemon: Pokemon
+  pid: number
+  pokemonNameJa: string
 }
 
-const PokemonCard = ({ pokemon }: Props) => {
+const pokedex = require("pokemon")
+
+const PokemonCard = ({ pokemon, pid, pokemonNameJa }: Props) => {
   return (
     <>
       <Card className="flex justify-between w-2/3 mx-auto my-6 min-w-max min-h-max">
         <div className="flex">
-          <PokemonIconM pokemon={pokemon} />
+          <PokemonIconM pid={pid} />
           <div>
             <CardHeader>
-              <CardTitle>{pokemon.pokedex_data.name_jp}</CardTitle>
-              <CardDescription>{pokemon.pokedex_data.name}</CardDescription>
+              <CardTitle>{pokemonNameJa}</CardTitle>
+              <CardDescription>{pokemon.name}</CardDescription>
             </CardHeader>
             <CardContent>
               <PokemonStatus pokemon={pokemon} />

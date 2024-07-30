@@ -2,10 +2,10 @@ import { useState } from "react"
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from "recharts"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
-import { MyPokemon, PokemonStatus } from "@/types"
+import { Pokemon, PokemonStatus } from "@/types"
 
 type Props = {
-  pokemon: MyPokemon
+  pokemon: Pokemon
 }
 
 type CustomTickProps = {
@@ -41,20 +41,7 @@ function subjectTick(props: CustomTickProps) {
   )
 }
 
-function calculateRealValue(
-  baseStat: number,
-  level: number,
-  iv: number,
-  ev: number,
-  natureModifier: number
-): number {
-  return (
-    Math.floor(((2 * baseStat + iv + Math.floor(ev / 4)) * level) / 100 + 5) *
-    natureModifier
-  )
-}
-
-function convertPokemonData2Stats(pokemon: MyPokemon): StatusData[] {
+function convertPokemonData2Stats(pokemon: Pokemon): StatusData[] {
   const statsMap: Record<string, string> = {
     hp: "H",
     atk: "A",
@@ -63,31 +50,16 @@ function convertPokemonData2Stats(pokemon: MyPokemon): StatusData[] {
     spd: "D",
     spe: "S",
   }
-  const natureModifiers: Record<string, number> = {
-    // ここに性格ごとの補正値を設定
-  }
   const desiredOrder = ["H", "A", "B", "S", "D", "C"]
 
-  return Object.entries(pokemon.evs)
-    .map(([statKey, ev]) => {
+  return Object.entries(pokemon.stats)
+    .map(([statKey, stat]) => {
+      const realValue = stat
+      const effortValue = pokemon.evs[statKey as keyof PokemonStatus]
       const subject = statsMap[statKey]
-      const effortValue = ev
-      const iv = pokemon.ivs[statKey as keyof PokemonStatus]
 
-      // const baseStat = pokemon.pokedex_data.stats[statKey]
-      const baseStat = 100
-
-      const natureModifier = natureModifiers[statKey] || 1
-
-      const realValue = calculateRealValue(
-        baseStat,
-        pokemon.level,
-        iv,
-        effortValue,
-        natureModifier
-      )
       const normalizedRv = 100 / (1 + Math.exp(-0.02 * (realValue - 80)))
-      const normalizedEv = 10 + (ev * (100 - 10)) / 252
+      const normalizedEv = 10 + (effortValue * (100 - 10)) / 252
       return { subject, realValue, normalizedRv, effortValue, normalizedEv }
     })
     .sort(

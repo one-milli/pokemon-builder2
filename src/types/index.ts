@@ -1,8 +1,6 @@
-export type Pokemon = {
-  pid: number
-  name: string
-  name_jp: string
-}
+import { Move } from "@smogon/calc"
+
+export { Pokemon, Move } from "@smogon/calc"
 
 export type PokemonStatus = {
   hp: number
@@ -13,20 +11,9 @@ export type PokemonStatus = {
   spe: number
 }
 
-export type Move = {
+export type PokemonConfig = {
   id: number
-  name: string
-  name_jp: string
-  type: string
-  category: string
-  power: number
-  accuracy: number
-  pp: number
-}
-
-export type MyPokemon = {
-  id: number
-  pokedex_data: Pokemon
+  pid: number
   level: number
   ability: string
   nature: string

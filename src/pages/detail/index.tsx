@@ -9,17 +9,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { Generations, Pokemon, Move } from "@smogon/calc"
+import pokedex from "pokemon"
 import PokemonCard from "@/components/PokemonCard"
 
-const pokemon = {
-  pid: 151,
-  name: "Mew",
-  name_jp: "ミュウ",
-}
+const gen = Generations.get(9)
 
-const my_pokemon = {
+const pokemon_config = {
   id: 1,
-  pokedex_data: pokemon,
+  pid: 282,
   level: 50,
   ability: "シンクロ",
   nature: "おくびょう",
@@ -34,7 +32,7 @@ const my_pokemon = {
   },
   ivs: {
     hp: 31,
-    atk: 31,
+    atk: 0,
     def: 31,
     spa: 31,
     spd: 31,
@@ -42,6 +40,15 @@ const my_pokemon = {
   },
   moves: [],
 }
+
+const pokemonName = pokedex.getName(pokemon_config.pid)
+const pokemonNameJa = pokedex.getName(pokemon_config.pid, "ja")
+
+const pokemon = new Pokemon(gen, pokemonName, {
+  level: pokemon_config.level,
+  evs: pokemon_config.evs,
+  ivs: pokemon_config.ivs,
+})
 
 const Detail = () => {
   return (
@@ -55,7 +62,11 @@ const Detail = () => {
         </SheetContent>
       </Sheet>
       <div className="grow">
-        <PokemonCard pokemon={my_pokemon} />
+        <PokemonCard
+          pokemon={pokemon}
+          pid={pokemon_config.pid}
+          pokemonNameJa={pokemonNameJa}
+        />
       </div>
     </>
   )
