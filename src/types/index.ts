@@ -1,10 +1,10 @@
-export interface Pokemon {
+export type Pokemon = {
   pid: number
   name: string
   name_jp: string
 }
 
-export interface PokemonStatus {
+export type PokemonStatus = {
   hp: number
   atk: number
   def: number
@@ -13,7 +13,18 @@ export interface PokemonStatus {
   spe: number
 }
 
-export interface MyPokemon {
+export type Move = {
+  id: number
+  name: string
+  name_jp: string
+  type: string
+  category: string
+  power: number
+  accuracy: number
+  pp: number
+}
+
+export type MyPokemon = {
   id: number
   pokedex_data: Pokemon
   level: number
@@ -22,4 +33,5 @@ export interface MyPokemon {
   item: string
   evs: PokemonStatus
   ivs: PokemonStatus
+  moves: Move[]
 }
