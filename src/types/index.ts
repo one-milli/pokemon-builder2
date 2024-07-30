@@ -4,6 +4,15 @@ export interface Pokemon {
   name_jp: string
 }
 
+export interface PokemonStatus {
+  hp: number
+  atk: number
+  def: number
+  spa: number
+  spd: number
+  spe: number
+}
+
 export interface MyPokemon {
   id: number
   pokedex_data: Pokemon
@@ -11,20 +20,6 @@ export interface MyPokemon {
   ability: string
   nature: string
   item: string
-  evs: {
-    hp: number
-    atk: number
-    def: number
-    spa: number
-    spd: number
-    spe: number
-  }
-  ivs: {
-    hp: number
-    atk: number
-    def: number
-    spa: number
-    spd: number
-    spe: number
-  }
+  evs: PokemonStatus
+  ivs: PokemonStatus
 }
