@@ -13,7 +13,7 @@ import PokemonCard from "@/components/PokemonCard"
 
 const pokemon = {
   pid: 151,
-  name: "mew",
+  name: "Mew",
   name_jp: "ミュウ",
 }
 
@@ -40,6 +40,7 @@ const my_pokemon = {
     spd: 31,
     spe: 31,
   },
+  moves: [],
 }
 
 const Detail = () => {
